@@ -1,6 +1,3 @@
-import re
-
-
 def fibonacci(num, memory = {}):
     if ((num == 1) or (num == 0)):
         return num
