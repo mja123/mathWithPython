@@ -3,26 +3,32 @@ from random import randint as rand
 import json
 
 #Store the results of the roll's results
-def simulation(roll_count, simulation_count):
+def simulation(dices, roll_count, simulation_count):
     simulation_results = []
     
     for _ in range(simulation_count):        
-        simulation_results.append(roll_dice(roll_count))
+        simulation_results.append(roll_dice(dices, roll_count))
 
-    probability(simulation_results, roll_count)    
+    probability(dices, simulation_results, roll_count)    
 
 
 #Return the results of the rolls
-def roll_dice(roll_count):
+def roll_dice(dices, roll_count):
     dice_results = []
     
     for _ in range(roll_count):
-        dice_results.append(rand(1, 7)) 
+        roll = 0
+        
+        for _ in range(dices):
+            roll += rand(1, 7)
+            
+        dice_results.append(roll) 
+        
     return dice_results
 
             
 #Calculate the probability of one number
-def probability(simulation_results, roll_count):
+def probability(dices, simulation_results, roll_count):
     number = int(input("Which result of roll do you want to know the probability?: "))
     dice_face_counter = 0
     
@@ -35,7 +41,7 @@ def probability(simulation_results, roll_count):
     
     print(f"The probability to obtain {number} in {roll_count} rolls is: {result}.")
     
-    store_results(number, roll_count, result, simulation_count, dices=1)
+    store_results(number, roll_count, result, simulation_count, dices)
 
 
 def store_results(number, roll_count, result, simulation_count, dices):
@@ -71,6 +77,7 @@ def fill_file(data):
 
 
 if (__name__ == '__main__'): 
+    dices = int(input("How many dices do you want to roll?: "))
     roll_count = int(input("How many rolls do you want to do?: "))
     simulation_count = int(input("How many times do you want to execute the simulation?: "))
-    result = simulation(roll_count, simulation_count)
+    result = simulation(dices, roll_count, simulation_count)
