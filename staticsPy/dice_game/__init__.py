@@ -5,12 +5,13 @@ game = Game(3)
 probabilities = Probability()
 
 while (game.rolls != 0):
+    print("***********************************")
     dices = game.roll_dices()
     probabilities.set_dices(dices)
     
+    probabilities.show_probabilities()
     if (game.rolls == 0):
         continue
-    probabilities.show_probabilities()
     game.choose_dices()
 
     
